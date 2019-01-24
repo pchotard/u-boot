@@ -47,6 +47,11 @@
 #define CONFIG_ENV_UBI_VOLUME_REDUND		"uboot_config_r"
 #endif
 
+#if defined(CONFIG_ENV_IS_IN_SPI_FLASH)
+#define	CONFIG_ENV_SECT_SIZE			SZ_256K
+#define	CONFIG_ENV_OFFSET			0x00280000
+#endif
+
 /* ATAGs */
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
@@ -119,7 +124,7 @@
 #endif
 
 #define STM32MP_MTDPARTS \
-	"mtdparts_nor0=256k(fsbl1),256k(fsbl2),2m(ssbl),-(nor_user)\0" \
+	"mtdparts_nor0=256k(fsbl1),256k(fsbl2),2m(ssbl),256k(u-boot-env),-(nor_user)\0" \
 	"mtdparts_nand0=2m(fsbl),2m(ssbl1),2m(ssbl2),-(UBI)\0"
 
 /*
