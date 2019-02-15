@@ -42,6 +42,7 @@ int board_usb_init(int index, enum usb_init_type init)
 	int node;
 	int phy_provider;
 	int ret;
+	int count;
 
 	/* find the usb otg node */
 	node = fdt_node_offset_by_compatible(blob, -1, "snps,dwc2");
@@ -138,8 +139,14 @@ int board_usb_init(int index, enum usb_init_type init)
 						     "g-rx-fifo-size", 0);
 	stm32mp_otg_data.np_tx_fifo_sz = fdtdec_get_int(blob, node,
 							"g-np-tx-fifo-size", 0);
-	stm32mp_otg_data.tx_fifo_sz = fdtdec_get_int(blob, node,
-						     "g-tx-fifo-size", 0);
+
+	count = fdtdec_get_int_array_count(blob, node, "g-tx-fifo-size",
+			&stm32mp_otg_data.tx_fifo_sz_array[DWC2_SIZE_OFFS],
+			ARRAY_SIZE(stm32mp_otg_data.tx_fifo_sz_array));
+
+	if (count != -FDT_ERR_NOTFOUND)
+		stm32mp_otg_data.tx_fifo_sz_array[DWC2_SIZE_NB_OFFS] = count;
+
 	/* Enable voltage level detector */
 	if (!(fdtdec_parse_phandle_with_args(blob, node, "usb33d-supply",
 					     NULL, 0, 0, &args))) {
