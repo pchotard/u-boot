@@ -25,10 +25,6 @@
 	regulator-always-on;
 };
 
-&usbotg_hs {
-	g-tx-fifo-size = <576>;
-};
-
 /* SPL part **************************************/
 &qspi {
 	u-boot,dm-spl;
