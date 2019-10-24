@@ -1499,12 +1499,6 @@ config CMD_ETHSW
 	  operations such as enabling / disabling a port and
 	  viewing/maintaining the filtering database (FDB)
 
-config CMD_PXE
-	bool "pxe"
-	select MENU
-	help
-	  Boot image via network using PXE protocol
-
 config CMD_WOL
 	bool "wol"
 	help
@@ -1635,6 +1629,12 @@ config CMD_MISC
 	default y
 	help
 	  Delay execution for some time
+
+config CMD_PXE
+	bool "pxe"
+	select MENU
+	help
+	  Boot image via network using PXE protocol or via local extlinux.conf file
 
 config MP
 	bool "support for multiprocessor"
