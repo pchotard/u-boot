@@ -108,7 +108,7 @@ ifdef CONFIG_PCI
 obj-$(CONFIG_CMD_PCI) += pci.o
 endif
 obj-$(CONFIG_CMD_PINMUX) += pinmux.o
-obj-$(CONFIG_CMD_PXE) += pxe.o
+obj-$(CONFIG_CMD_PXE) += pxe.o pxe_utils.o
 obj-$(CONFIG_CMD_WOL) += wol.o
 obj-$(CONFIG_CMD_QFW) += qfw.o
 obj-$(CONFIG_CMD_READ) += read.o
@@ -163,6 +163,7 @@ obj-$(CONFIG_CMD_DFU) += dfu.o
 obj-$(CONFIG_CMD_GPT) += gpt.o
 obj-$(CONFIG_CMD_ETHSW) += ethsw.o
 obj-$(CONFIG_CMD_AXI) += axi.o
+obj-$(CONFIG_CMD_SYSBOOT) += sysboot.o pxe_utils.o
 
 # Power
 obj-$(CONFIG_CMD_PMIC) += pmic.o
