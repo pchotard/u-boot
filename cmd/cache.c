@@ -64,6 +64,7 @@ static int do_dcache(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 			break;
 		case 1:
 			dcache_enable();
+			mmu_set_region_noncached_behaviour();
 			break;
 		case 2:
 			flush_dcache_all();

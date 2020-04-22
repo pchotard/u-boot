@@ -64,6 +64,10 @@ int check_cache_range(unsigned long start, unsigned long stop)
 	return ok;
 }
 
+__weak void mmu_set_region_noncached_behaviour(void)
+{
+}
+
 #ifdef CONFIG_SYS_NONCACHED_MEMORY
 /*
  * Reserve one MMU section worth of address space below the malloc() area that
@@ -72,6 +76,15 @@ int check_cache_range(unsigned long start, unsigned long stop)
 static unsigned long noncached_start;
 static unsigned long noncached_end;
 static unsigned long noncached_next;
+
+void noncached_set_region(void)
+{
+#if !CONFIG_IS_ENABLED(SYS_DCACHE_OFF)
+	mmu_set_region_dcache_behaviour(noncached_start,
+					noncached_end - noncached_start,
+					DCACHE_OFF);
+#endif
+}
 
 void noncached_init(void)
 {
@@ -89,9 +102,7 @@ void noncached_init(void)
 	noncached_end = end;
 	noncached_next = start;
 
-#if !CONFIG_IS_ENABLED(SYS_DCACHE_OFF)
-	mmu_set_region_dcache_behaviour(noncached_start, size, DCACHE_OFF);
-#endif
+	noncached_set_region();
 }
 
 phys_addr_t noncached_alloc(size_t size, size_t align)
