@@ -223,6 +223,11 @@ int arch_cpu_init(void)
 	return 0;
 }
 
+void mmu_set_region_noncached_behaviour(void)
+{
+	noncached_set_region();
+}
+
 void enable_caches(void)
 {
 	/* Enable D-cache. I-cache is already enabled in start.S */
